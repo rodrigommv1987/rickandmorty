@@ -1,0 +1,33 @@
+{
+  // Use IntelliSense para saber los atributos posibles.
+  // Mantenga el puntero para ver las descripciones de los existentes atributos.
+  // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "args": [
+        "tests/**/*.test.js",
+        "--require",
+        "tests/hook.js",
+        "--require",
+        "@babel/register",
+        "-u",
+        "bdd",
+        "--timeout",
+        "999999",
+        "--colors",
+      ],
+      "cwd": "${cwd}/backend",
+      "runtimeArgs": [],
+      "internalConsoleOptions": "openOnSessionStart",
+      "name": "Mocha Tests",
+      "program": "./node_modules/mocha/bin/_mocha",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "env": {
+        "NODE_ENV": "test",
+      }
+    }
+  ]
+}

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require @babel/register --require tests/hook.js tests/**/*.test.js",
+    "test": "mocha --require @babel/register --require tests/hook.js tests/**/*.test.js -c",
     "build": "babel index.js -d dist",
     "start": "nodemon --exec babel-node index.js"
   },
