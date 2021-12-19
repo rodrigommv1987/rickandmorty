@@ -2,7 +2,6 @@ import "dotenv/config.js";
 import { verify } from "../utils/jwt";
 
 const verifyToken = async (req, res, next) => {
-  console.log("entra en verifyToken");
   const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
 
@@ -27,6 +26,4 @@ const verifyToken = async (req, res, next) => {
   return next();
 };
 
-export {
-  verifyToken,
-};
+export { verifyToken };

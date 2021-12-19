@@ -1,5 +1,6 @@
 import { compare, hash } from "../utils/bcrypt";
 import { sign } from "../utils/jwt";
+import { sendResponse } from "../utils/response";
 
 const userController = (UserModel) => {
   const register = async (req, res) => {
@@ -9,9 +10,7 @@ const userController = (UserModel) => {
       const oldUser = await UserModel.findOne({ email });
 
       if (oldUser) {
-        res.status(409);
-        return res.json({
-          success: false,
+        return sendResponse(res, 409, false, {
           msg: "User already exists",
         });
       }
@@ -21,26 +20,20 @@ const userController = (UserModel) => {
         email: email.toLowerCase(),
         password: encryptedPassword,
         favorite: [],
-        token: "",
       });
       const token = await sign({ id: user._id, email });
-      user.token = token;
-      user.save();
 
-      res.status(201);
-      return res.json({
-        success: true,
-        user,
+      return sendResponse(res, 201, true, {
+        token,
+        email,
       });
     } catch (error) {
-      console.log(error);
-      res.status(500);
-      return res.json({
-        success: false,
+      return sendResponse(res, 500, false, {
         msg: "Something went wrong during register",
       });
     }
   };
+  //TODO terminar de revisar que se envie solo el token y el mail
   const login = async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -48,22 +41,17 @@ const userController = (UserModel) => {
       const user = await UserModel.findOne({ email });
 
       if (!user) {
-        res.status(409);
-        return res.json({
-          success: false,
+        return sendResponse(res, 409, false, {
           msg: "Invalid user or password",
         });
       }
 
       if (await compare(password.toString(), user.password)) {
         const token = await sign({ id: user._id, email });
-        user.token = token;
-        user.save();
 
-        res.status(200);
-        return res.json({
-          success: true,
-          user,
+        return sendResponse(res, 200, true, {
+          token,
+          email,
         });
       }
 
@@ -88,16 +76,12 @@ const userController = (UserModel) => {
     } = req;
 
     if (isNaN(+characterId)) {
-      res.status(400);
-      return res.json({
-        success: false,
+      return sendResponse(res, 400, false, {
         msg: "Invalid character id",
       });
     }
     if (status !== "true" && status !== "false") {
-      res.status(400);
-      return res.json({
-        success: false,
+      return sendResponse(res, 400, false, {
         msg: "Invalid status",
       });
     }
@@ -117,13 +101,9 @@ const userController = (UserModel) => {
       }
       user.save();
 
-      res.status(200);
-      return res.json({ success: true });
+      return sendResponse(res, 200, true);
     } catch (error) {
-      console.log(error);
-      res.status(500);
-      return res.json({
-        success: false,
+      return sendResponse(res, 500, false, {
         msg: "Something went wrong while saving the favorite",
       });
     }
