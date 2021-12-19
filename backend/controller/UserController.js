@@ -33,7 +33,6 @@ const userController = (UserModel) => {
       });
     }
   };
-  //TODO terminar de revisar que se envie solo el token y el mail
   const login = async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -55,16 +54,11 @@ const userController = (UserModel) => {
         });
       }
 
-      res.status(409);
-      return res.json({
-        success: false,
+      return sendResponse(res, 409, false, {
         msg: "Invalid user or password",
       });
     } catch (error) {
-      console.log(error);
-      res.status(500);
-      return res.json({
-        success: false,
+      return sendResponse(res, 500, false, {
         msg: "Something went wrong during login",
       });
     }

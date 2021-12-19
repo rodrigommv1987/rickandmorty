@@ -1,3 +1,4 @@
+import { sendResponse } from "../utils/response";
 import { validEmail } from "../utils/validation";
 
 /**
@@ -12,16 +13,12 @@ const userInputValidation = (req, res, next) => {
   const { email = "", password = "" } = req.body;
 
   if (!email || !password) {
-    res.status(400);
-    return res.json({
-      success: false,
-      msg: "All inputs are required",
+    return sendResponse(res, 400, false, {
+      msg: "Missing information",
     });
   }
   if (!validEmail(email)) {
-    res.status(400);
-    return res.json({
-      success: false,
+    return sendResponse(res, 400, false, {
       msg: "Invalid email address",
     });
   }

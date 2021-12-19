@@ -55,7 +55,6 @@ const characterController = (RM_API, UserModel) => {
         },
       });
     } catch (error) {
-      console.log(error);
       return sendResponse(res, 500, false, {
         msg: "Something went wrong while fetching the character",
       });
