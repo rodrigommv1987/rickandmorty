@@ -1,0 +1,7 @@
+nav {
+  padding: 20px 0 20px 0;
+}
+
+nav a.is-active {
+  color: #f15b2a;
+}

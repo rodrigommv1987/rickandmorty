@@ -1,0 +1,19 @@
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.card-wrapper {
+  display: flex;
+}
+
+.card-image {
+}
+.card-image img {
+  width: 125px;
+  height: 125px;
+}
+
+.card-description {
+  flex: 1;
+}
