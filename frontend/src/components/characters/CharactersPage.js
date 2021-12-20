@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
+import CharacterLoadMore from "./CharacterLoadMore";
 import SmallCard from "../cards/SmallCard";
 import Spinner from "../common/Spinner";
 import {
@@ -24,7 +25,8 @@ const CharactersPage = ({
     };
   }, []);
 
-  // charactersData && console.log(charactersData);
+  // charactersData &&
+  //   console.log("CharactersPage charactersData: ", charactersData);
   // userData && console.log(userData);
 
   return (
@@ -41,7 +43,7 @@ const CharactersPage = ({
                   isFavorite={userData.favorites.includes(character.id)}
                 />
               ))}
-              <CharacterNavigation pagesData={charactersData.pages} />
+              <CharacterLoadMore pagesData={charactersData.pages} />
             </>
           ) : (
             <Spinner />
@@ -49,17 +51,6 @@ const CharactersPage = ({
         </div>
       </section>
     </>
-  );
-};
-
-const CharacterNavigation = ({ pagesData: { prev, next } }) => {
-  console.log("prev vale: ", prev);
-  console.log("next vale: ", next);
-  return (
-    <div className="pages-nav">
-      <button>Prev</button>
-      <button>Next</button>
-    </div>
   );
 };
 

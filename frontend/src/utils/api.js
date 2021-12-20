@@ -51,7 +51,7 @@ export async function getCharactersPage(number) {
     token,
   });
 
-  return res.json();
+  return res;
 }
 
 export async function getCharacter(id) {
@@ -62,7 +62,6 @@ export async function getCharacter(id) {
     token,
   });
 
-  // return res.json();
   return res;
 }
 
