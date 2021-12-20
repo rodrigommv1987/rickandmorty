@@ -17,7 +17,6 @@ describe("User Controller Unit Test:", async () => {
             email: "john@doe.com",
             password: await hash("12345"),
             favorite: [],
-            token: "",
           })
         );
       } else return Promise.resolve(false);
@@ -54,7 +53,7 @@ describe("User Controller Unit Test:", async () => {
       res.json
         .calledWith({
           success: false,
-          msg: "User already exists",
+          data: { msg: "User already exists" },
         })
         .should.equal(true);
     });
@@ -66,13 +65,16 @@ describe("User Controller Unit Test:", async () => {
         },
       };
       await controller.register(req, res);
-      const user = res.json.args[0][0].user;
+      const { token } = res.json.args[0][0].data;
 
       res.status.calledWith(201).should.equal(true);
       res.json
         .calledWith({
           success: true,
-          user,
+          data: {
+            email: req.body.email,
+            token,
+          },
         })
         .should.equal(true);
     });
@@ -98,7 +100,7 @@ describe("User Controller Unit Test:", async () => {
       res.json
         .calledWith({
           success: false,
-          msg: "Invalid user or password",
+          data: { msg: "Invalid user or password" },
         })
         .should.equal(true);
     });
@@ -116,7 +118,7 @@ describe("User Controller Unit Test:", async () => {
       res.json
         .calledWith({
           success: false,
-          msg: "Invalid user or password",
+          data: { msg: "Invalid user or password" },
         })
         .should.equal(true);
     });
@@ -129,13 +131,16 @@ describe("User Controller Unit Test:", async () => {
       };
 
       await controller.login(req, res);
-      const user = res.json.args[0][0].user;
+      const { token } = res.json.args[0][0].data;
 
       res.status.calledWith(200).should.equal(true);
       res.json
         .calledWith({
           success: true,
-          user,
+          data: {
+            email: req.body.email,
+            token,
+          },
         })
         .should.equal(true);
     });

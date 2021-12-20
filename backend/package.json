@@ -9,7 +9,8 @@
     "build": "npm run clean && npm run build-server",
     "start": "cross-env NODE_ENV=production node ./dist/index.js",
     "dev": "nodemon --exec node_modules/.bin/babel-node index.js",
-    "test": "mocha --require @babel/register --require tests/hook.js tests/**/*.test.js -c"
+    "test": "mocha --require @babel/register --require tests/hook.js tests/**/*.test.js -c  --timeout 10000",
+    "test:watch": "mocha --watch --require @babel/register --require tests/hook.js tests/**/*.test.js -c  --timeout 10000"
   },
   "author": "",
   "license": "ISC",

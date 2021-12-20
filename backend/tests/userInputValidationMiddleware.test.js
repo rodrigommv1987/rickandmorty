@@ -18,7 +18,7 @@ describe("userInputValidation middleware tests:", () => {
     };
     const expectedResponse = {
       success: false,
-      msg: "All inputs are required",
+      data: { msg: "Missing information" },
     };
     userInputValidation(req, res, next);
 
@@ -34,7 +34,7 @@ describe("userInputValidation middleware tests:", () => {
     };
     const expectedResponse = {
       success: false,
-      msg: "All inputs are required",
+      data: { msg: "Missing information" },
     };
     userInputValidation(req, res, next);
 
@@ -51,7 +51,7 @@ describe("userInputValidation middleware tests:", () => {
     };
     const expectedResponse = {
       success: false,
-      msg: "Invalid email address",
+      data: { msg: "Invalid email address" },
     };
     userInputValidation(req, res, next);
 
