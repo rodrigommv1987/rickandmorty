@@ -11,7 +11,7 @@ export default function useUser() {
   };
 
   const saveUser = (user) => {
-    userStorage.saveUser(token);
+    userStorage.saveUser(user);
     setUser(user);
   };
 

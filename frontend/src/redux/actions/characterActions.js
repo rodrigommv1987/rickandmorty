@@ -1,4 +1,9 @@
-import { GET_CHARACTER_SUCCESS, GET_CHARACTERS_SUCCESS } from "./actionTypes";
+import {
+  GET_CHARACTER_SUCCESS,
+  GET_CHARACTERS_SUCCESS,
+  CLEAR_CHARACTERS,
+} from "./actionTypes";
+import { tokenExpired } from "./authActions";
 import * as API from "../../utils/api";
 
 export function getCharactersSuccess({ data }) {
@@ -9,22 +14,40 @@ export function getCharacterSuccess({ data }) {
   return { type: GET_CHARACTER_SUCCESS, data };
 }
 
+export function clearCharacters() {
+  return { type: CLEAR_CHARACTERS };
+}
+
 export function getCharacters() {
   return function (dispatch) {
-    return API.getCharacters()
-      .then((response) => {
-        dispatch(getCharactersSuccess(response));
-      })
-      .catch((error) => console.log(error));
+    return API.getCharacters().then(async (response) => {
+      const { status } = response;
+      if (status === 200) {
+        const data = await response.json();
+        return dispatch(getCharactersSuccess(data));
+      }
+      if (status === 401 || status === 403) {
+        return dispatch(tokenExpired());
+      }
+      const data = await response.json();
+      throw new Error(data.msg);
+    });
   };
 }
 
 export function getCharacter(id) {
   return function (dispatch) {
-    return API.getCharacter(id)
-      .then((response) => {
-        dispatch(getCharacterSuccess(response));
-      })
-      .catch((error) => console.log(error));
+    return API.getCharacter(id).then(async (response) => {
+      const { status } = response;
+      if (status === 200) {
+        const data = await response.json();
+        return dispatch(getCharacterSuccess(data));
+      }
+      if (status === 401 || status === 403) {
+        return dispatch(tokenExpired());
+      }
+      const data = await response.json();
+      throw new Error(data.msg);
+    });
   };
 }

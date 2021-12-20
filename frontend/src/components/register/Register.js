@@ -5,21 +5,25 @@ import { register } from "../../utils/api";
 import { UserContext } from "../App";
 
 export default function Register() {
-  const { setToken } = useContext(UserContext);
+  const { setToken, setUser } = useContext(UserContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { success, token, msg } = await register({
+    const {
+      success,
+      data: { token, msg },
+    } = await register({
       email,
       password,
     });
 
     if (success) {
+      setUser(email);
       setToken(token);
-      navigate("/home");
+      navigate("/");
     } else {
       //TODO catch incorrect credentials
       console.log(msg);
@@ -42,7 +46,7 @@ export default function Register() {
           />
         </label>
         <div>
-          <button type="submit">Sign In</button>
+          <button type="submit">Register</button>
         </div>
       </form>
       <span>

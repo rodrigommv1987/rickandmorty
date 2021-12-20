@@ -40,6 +40,17 @@ export async function getCharacters() {
     token,
   });
 
+  return res;
+}
+
+export async function getCharactersPage(number) {
+  const token = userStorage.getToken();
+  const res = await callApi({
+    path: `/characters/page/${number}`,
+    method: "GET",
+    token,
+  });
+
   return res.json();
 }
 
@@ -51,7 +62,8 @@ export async function getCharacter(id) {
     token,
   });
 
-  return res.json();
+  // return res.json();
+  return res;
 }
 
 export async function updateFavorite(id, value) {
@@ -65,7 +77,7 @@ export async function updateFavorite(id, value) {
   return res.json();
 }
 
-function callApi({ path, method, payload = null, token = null }) {
+async function callApi({ path, method, payload = null, token = null }) {
   const opts = {
     headers: {
       "Content-Type": "application/json",
@@ -77,11 +89,16 @@ function callApi({ path, method, payload = null, token = null }) {
   if (payload) opts.body = JSON.stringify(payload);
 
   try {
-    return fetch(`${REACT_APP_BACKEND_URL}${path}`, opts);
+    const response = await fetch(`${REACT_APP_BACKEND_URL}${path}`, opts);
+    return response;
   } catch (error) {
-    return {
-      success: false,
-      msg: "Could not reach server",
-    };
+    const msg = "Network Error";
+    const body = new Blob([JSON.stringify({ msg })], {
+      type: "application/json",
+    });
+    return new Response(body, {
+      status: 500,
+      statusText: msg,
+    });
   }
 }

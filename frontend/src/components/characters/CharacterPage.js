@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
-import BigCard from "../Cards/BigCard";
+import BigCard from "../cards/BigCard";
 import Spinner from "../common/Spinner";
 import { getCharacter } from "../../redux/actions/characterActions";
+import { updateFavorite } from "../../redux/actions/userActions";
 
-const CharacterPage = ({ getCharacter, characterData, userData }) => {
+const CharacterPage = ({
+  getCharacter,
+  characterData,
+  userData,
+  updateFavorite,
+}) => {
   let { characterId } = useParams();
 
   const toggleFavorite = (addOrRemove) => {
-    console.log("toggleFavorite: ", addOrRemove, id);
+    updateFavorite(id, addOrRemove);
   };
 
   useEffect(() => {
@@ -23,7 +29,7 @@ const CharacterPage = ({ getCharacter, characterData, userData }) => {
   // characterData && console.log(characterData);
   // userData && console.log(userData.favorites);
 
-  if (!characterData) {
+  if (!characterData || !userData) {
     return <Spinner />;
   }
 
@@ -59,7 +65,10 @@ const CharacterPage = ({ getCharacter, characterData, userData }) => {
   );
 };
 
-function mapStateToProps({ characterReducer: { characterData, userData } }) {
+function mapStateToProps({
+  characterReducer: { characterData },
+  userReducer: { userData },
+}) {
   return {
     characterData,
     userData,
@@ -68,6 +77,7 @@ function mapStateToProps({ characterReducer: { characterData, userData } }) {
 
 const mapDispatchToProps = {
   getCharacter,
+  updateFavorite,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CharacterPage);
