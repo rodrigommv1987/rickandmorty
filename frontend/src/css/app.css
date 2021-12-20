@@ -1,0 +1,42 @@
+:root {
+  --grey: #272727;
+  --green: #97ce4c;
+  --action: #e89ac7;
+}
+
+#app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 110px);
+  justify-content: flex-start;
+}
+
+.app-body {
+  padding: 20px;
+  margin-bottom: auto;
+}
+
+.app-footer {
+  padding: 20px;
+  height: 70px;
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  background-color: var(--grey);
+}
+
+.app-footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .app-body {
+    padding: 20px 50px;
+  }
+}

@@ -6,7 +6,7 @@ const CharacterLoadMore = ({ pagesData: { next }, getCharactersPage }) => {
   if (!next) return null;
 
   return (
-    <div className="pages-nav">
+    <div className="cards-actions">
       <button onClick={() => getCharactersPage(next)}>
         Load more characters!
       </button>

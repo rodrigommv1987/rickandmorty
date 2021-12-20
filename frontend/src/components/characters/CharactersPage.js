@@ -25,17 +25,13 @@ const CharactersPage = ({
     };
   }, []);
 
-  // charactersData &&
-  //   console.log("CharactersPage charactersData: ", charactersData);
-  // userData && console.log(userData);
-
   return (
     <>
       <h1>Rick and Morty character list</h1>
       <section>
-        <div className="cards-container">
-          {charactersData?.characters ? (
-            <>
+        {charactersData?.characters ? (
+          <>
+            <div className="cards-container">
               {charactersData?.characters?.map((character, index) => (
                 <SmallCard
                   key={character.id}
@@ -43,12 +39,12 @@ const CharactersPage = ({
                   isFavorite={userData.favorites.includes(character.id)}
                 />
               ))}
-              <CharacterLoadMore pagesData={charactersData.pages} />
-            </>
-          ) : (
-            <Spinner />
-          )}
-        </div>
+            </div>
+            <CharacterLoadMore pagesData={charactersData.pages} />
+          </>
+        ) : (
+          <Spinner />
+        )}
       </section>
     </>
   );

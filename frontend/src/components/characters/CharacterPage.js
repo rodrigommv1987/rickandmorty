@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 import BigCard from "../cards/BigCard";
+import InteractiveButton from "../common/InteractiveButton";
 import Spinner from "../common/Spinner";
 import { getCharacter } from "../../redux/actions/characterActions";
 import { updateFavorite } from "../../redux/actions/userActions";
@@ -16,8 +17,13 @@ const CharacterPage = ({
 }) => {
   let { characterId } = useParams();
 
-  const toggleFavorite = (addOrRemove) => {
-    updateFavorite(id, addOrRemove);
+  const toggleFavorite = async (addOrRemove, done) => {
+    try {
+      await updateFavorite(id, addOrRemove);
+    } catch (error) {
+    } finally {
+      done();
+    }
   };
 
   useEffect(() => {
@@ -50,12 +56,20 @@ const CharacterPage = ({
             {isFavorite ? (
               <span>
                 Added to favorites.
-                <button onClick={() => toggleFavorite(false)}>Remove!</button>
+                <InteractiveButton
+                  onClick={(event, done) => toggleFavorite(false, done)}
+                >
+                  Remove!
+                </InteractiveButton>
               </span>
             ) : (
               <span>
                 Not in favorites.
-                <button onClick={() => toggleFavorite(true)}>Add!</button>
+                <InteractiveButton
+                  onClick={(event, done) => toggleFavorite(true, done)}
+                >
+                  Remove!
+                </InteractiveButton>
               </span>
             )}
           </div>

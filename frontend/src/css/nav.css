@@ -1,5 +1,24 @@
-nav {
-  padding: 20px 0 20px 0;
+.app-nav {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #e4a788;
+  color: var(--grey);
+}
+
+.app-nav__nav-links {
+  font-weight: bold;
+}
+
+.app-nav__nav-link {
+  text-decoration: none;
+  color: var(--grey);
+}
+
+.app-nav__user-name {
+  margin-right: 20px;
+}
+.app-nav__user-action {
 }
 
 nav a.is-active {
