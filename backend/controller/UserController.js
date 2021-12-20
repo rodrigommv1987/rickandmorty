@@ -82,20 +82,24 @@ const userController = (UserModel) => {
 
     try {
       const user = await UserModel.findOne({ email });
-      const hasCharacter = user.favorites.includes(characterId);
+      const hasCharacter = user.favorites.includes(+characterId);
 
       if (status === "true") {
-        if (!hasCharacter) user.favorites.push(characterId);
+        if (!hasCharacter) user.favorites.push(+characterId);
       } else {
         if (hasCharacter) {
           user.favorites = user.favorites.filter(
-            (currentCharacterId) => currentCharacterId != characterId
+            (currentCharacterId) => currentCharacterId != +characterId
           );
         }
       }
       user.save();
 
-      return sendResponse(res, 200, true);
+      return sendResponse(res, 200, true, {
+        userData: {
+          favorites: user.favorites,
+        },
+      });
     } catch (error) {
       return sendResponse(res, 500, false, {
         msg: "Something went wrong while saving the favorite",

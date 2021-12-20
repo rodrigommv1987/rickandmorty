@@ -45,15 +45,18 @@ const characterController = (RM_API, UserModel) => {
           msg: "Character not found",
         });
       }
-      const { email } = req.user;
-      const { favorites } = await UserModel.findOne({ email });
 
-      return sendResponse(res, 200, true, {
-        characterData: data,
-        userData: {
-          favorites,
-        },
-      });
+      if (status === 200) {
+        const { email } = req.user;
+        const { favorites } = await UserModel.findOne({ email });
+
+        return sendResponse(res, 200, true, {
+          characterData: data,
+          userData: {
+            favorites,
+          },
+        });
+      }
     } catch (error) {
       return sendResponse(res, 500, false, {
         msg: "Something went wrong while fetching the character",
@@ -64,31 +67,29 @@ const characterController = (RM_API, UserModel) => {
     const { number } = req.params;
 
     if (isNaN(+number)) {
-      res.status(400);
-      return res.json({
-        success: false,
+      return sendResponse(res, 400, false, {
         msg: "Invalid page number",
       });
     }
 
     try {
-      const characters = await RM_API.getCharacters({ page: +number });
+      const { data, status } = await RM_API.getCharacters({ page: +number });
 
-      if (characters.status === 404) {
-        res.status(404);
-        return res.json({
-          success: false,
+      if (status === 404) {
+        return sendResponse(res, 404, false, {
           msg: "Page not found",
         });
       }
 
-      res.status(200);
-      return res.json(characters);
+      if (status === 200) {
+        const charactersData = extractCharactersData(data);
+
+        return sendResponse(res, 200, true, {
+          charactersData,
+        });
+      }
     } catch (error) {
-      console.log(error);
-      res.status(500);
-      return res.json({
-        success: false,
+      return sendResponse(res, 500, false, {
         msg: "Something went wrong while fetching the page",
       });
     }
