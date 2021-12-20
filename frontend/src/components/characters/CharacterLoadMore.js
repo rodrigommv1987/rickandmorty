@@ -1,15 +1,25 @@
 import { connect } from "react-redux";
 
 import { getCharactersPage } from "../../redux/actions/characterActions";
+import InteractiveButton from "../common/InteractiveButton";
 
 const CharacterLoadMore = ({ pagesData: { next }, getCharactersPage }) => {
   if (!next) return null;
 
+  const handleClick = async (event, done) => {
+    try {
+      await getCharactersPage(next);
+    } catch (error) {
+    } finally {
+      done();
+    }
+  };
+
   return (
     <div className="cards-actions">
-      <button onClick={() => getCharactersPage(next)}>
+      <InteractiveButton onClick={handleClick}>
         Load more characters!
-      </button>
+      </InteractiveButton>
     </div>
   );
 };

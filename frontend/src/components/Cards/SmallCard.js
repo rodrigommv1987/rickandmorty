@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const SmallCard = ({ character, isFavorite }) => {
   const { image, id, name } = character;
   return (
-    <article className="card-wrapper">
+    <article className="card-wrapper card-small">
       <div className="card-image">
         <LazyLoadImage alt={image} src={image} effect="blur" />
       </div>

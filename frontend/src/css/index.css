@@ -1,5 +1,5 @@
 body {
-  background-color: #44281d;
+  background-color: var(--brown);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -8,13 +8,10 @@ body {
   overflow-x: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
+@import "vars.css";
 @import "app.css";
 @import "card.css";
 @import "login.css";
 @import "nav.css";
+@import "spinner.css";
 @import "interactive-button.css";

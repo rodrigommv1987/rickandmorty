@@ -1,9 +1,3 @@
-:root {
-  --grey: #272727;
-  --green: #97ce4c;
-  --action: #e89ac7;
-}
-
 #app {
   max-width: 1200px;
   margin: 0 auto;

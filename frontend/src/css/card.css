@@ -7,12 +7,12 @@
 
 .card-wrapper {
   display: flex;
-  background-color: #272727;
+  background-color: var(--grey);
   border-radius: 10px;
   overflow: hidden;
 }
 
-.card-image img {
+.card-wrapper.card-small img {
   width: 150px;
   height: 150px;
 }
@@ -20,7 +20,7 @@
 .card-description {
   flex: 1;
   padding: 0 20px;
-  color: #97ce4c;
+  color: var(--green);
 }
 
 .card-name {
@@ -29,7 +29,7 @@
 }
 
 .card-name:hover {
-  color: #98ce4cc5;
+  color: var(--green-variation);
 }
 
 .cards-actions {

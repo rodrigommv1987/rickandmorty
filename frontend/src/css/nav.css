@@ -2,7 +2,7 @@
   padding: 20px;
   display: flex;
   justify-content: space-between;
-  background-color: #e4a788;
+  background-color: var(--orange);
   color: var(--grey);
 }
 
@@ -18,9 +18,7 @@
 .app-nav__user-name {
   margin-right: 20px;
 }
-.app-nav__user-action {
-}
 
 nav a.is-active {
-  color: #f15b2a;
+  color: var(--nav-active);
 }
