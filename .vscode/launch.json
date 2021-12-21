@@ -15,9 +15,9 @@
         "bdd",
         "--timeout",
         "999999",
-        "--colors",
+        "--colors"
       ],
-      "cwd": "${cwd}/backend",
+      "cwd": "${cwd}/server",
       "runtimeArgs": [],
       "internalConsoleOptions": "openOnSessionStart",
       "name": "Mocha Tests",
@@ -26,7 +26,7 @@
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
       "env": {
-        "NODE_ENV": "test",
+        "NODE_ENV": "test"
       }
     }
   ]

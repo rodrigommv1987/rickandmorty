@@ -1,6 +1,6 @@
 import userStorage from "./userStorage";
 
-const { REACT_APP_BACKEND_URL } = process.env;
+const { REACT_APP_SERVER_URL } = process.env;
 
 export async function login(payload) {
   const res = await callApi({
@@ -88,7 +88,7 @@ async function callApi({ path, method, payload = null, token = null }) {
   if (payload) opts.body = JSON.stringify(payload);
 
   try {
-    const response = await fetch(`${REACT_APP_BACKEND_URL}${path}`, opts);
+    const response = await fetch(`${REACT_APP_SERVER_URL}${path}`, opts);
     return response;
   } catch (error) {
     const msg = "Network Error";
