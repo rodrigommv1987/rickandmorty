@@ -9,6 +9,10 @@ const UserModel = mongoose.model("User");
 const agent = request.agent(app);
 
 describe("User Controller Integration Test:", async () => {
+  before((done) => {
+    UserModel.deleteMany({}).exec();
+    done();
+  });
   it("should create a new user in the DB and return the email and token after creation", async () => {
     const userData = {
       email: "john1@doe.com",
