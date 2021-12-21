@@ -4,7 +4,8 @@ import sinon from "sinon";
 import should from "should";
 
 import userController from "../controller/UserController";
-import { hash } from "../utils/bcrypt";
+import * as bcrypt from "../utils/bcrypt";
+import * as jwt from "../utils/jwt";
 
 describe("User Controller Unit Test:", async () => {
   let controller;
@@ -15,7 +16,7 @@ describe("User Controller Unit Test:", async () => {
         return Promise.resolve(
           this.create({
             email: "john@doe.com",
-            password: await hash("12345"),
+            password: await bcrypt.hash("12345"),
             favorite: [],
           })
         );
@@ -32,7 +33,7 @@ describe("User Controller Unit Test:", async () => {
 
   describe("register function tests:", () => {
     beforeEach(() => {
-      controller = userController(new MockUserModel());
+      controller = userController(new MockUserModel(), bcrypt, jwt);
       res = {
         status: sinon.spy(),
         send: sinon.spy(),
@@ -81,7 +82,7 @@ describe("User Controller Unit Test:", async () => {
   });
   describe("login function tests:", () => {
     beforeEach(() => {
-      controller = userController(new MockUserModel());
+      controller = userController(new MockUserModel(), bcrypt, jwt);
       res = {
         status: sinon.spy(),
         json: sinon.spy(),

@@ -1,8 +1,6 @@
-import { compare, hash } from "../utils/bcrypt";
-import { sign } from "../utils/jwt";
 import { sendResponse } from "../utils/response";
 
-const userController = (UserModel) => {
+const userController = (UserModel, { compare, hash }, { sign }) => {
   const register = async (req, res) => {
     try {
       const { email, password } = req.body;

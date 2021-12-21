@@ -1,7 +1,11 @@
-import { verify } from "../utils/jwt";
 import { sendResponse } from "../utils/response";
 
-const authController = () => {
+/**
+ * builds an authController using the provided data sources
+ * @param {Object} implementation JWT implementation
+ * @returns the controller's public interface
+ */
+const authController = ({ verify }) => {
   const validateToken = async (req, res) => {
     try {
       const { token } = req.body;
@@ -13,6 +17,12 @@ const authController = () => {
   };
 
   return {
+    /**
+     * validates the token sent by the client.
+     * @param {express.Request} req express request object
+     * @param {express.Response} res express response object
+     * @returns {express.Response} wether the token is valid or not
+     */
     validateToken,
   };
 };

@@ -1,6 +1,12 @@
 import { extractCharactersData } from "../utils/characters";
 import { sendResponse } from "../utils/response";
 
+/**
+ * builds a characterController using the provided data sources
+ * @param {Object} RM_API Rick and Morty API functions
+ * @param {mongoose.Model} UserModel mongoose User model
+ * @returns the controller's public interface
+ */
 const characterController = (RM_API, UserModel) => {
   const getAllCharacters = async (req, res) => {
     try {
@@ -96,8 +102,26 @@ const characterController = (RM_API, UserModel) => {
   };
 
   return {
+    /**
+     * gets all characters and the user's favorite characters
+     * @param {express.Request} req express request object
+     * @param {express.Response} res express response object
+     * @returns {express.Response} all characters from first page and the current user's favorites characters
+     */
     getAllCharacters,
+    /**
+     * gets a specific character and the user's favorite characters
+     * @param {express.Request} req express request object
+     * @param {express.Response} res express response object
+     * @returns {express.Response} a character and the current user's favorites characters
+     */
     getCharacter,
+    /**
+     * gets all characters in the specified page number
+     * @param {express.Request} req express request object
+     * @param {express.Response} res express response object
+     * @returns {express.Response} all characters in the specified page number
+     */
     getPage,
   };
 };

@@ -4,9 +4,9 @@ import userController from "../controller/UserController";
 import { verifyToken } from "../middleware/auth";
 import { userInputValidation } from "../middleware/userInputValidation";
 
-const userRouter = (UserModel) => {
+const userRouter = (UserModel, bcrypt, jwt) => {
   const userRoutes = express.Router();
-  const controller = userController(UserModel);
+  const controller = userController(UserModel, bcrypt, jwt);
 
   userRoutes
     .post("/register", userInputValidation, controller.register)
