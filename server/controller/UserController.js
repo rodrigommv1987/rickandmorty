@@ -1,5 +1,12 @@
 import { sendResponse } from "../utils/response";
 
+/**
+ * builds a userController using the provided data sources
+ * @param {mongoose.Model} UserModel mongoose User model
+ * @param {Object} bcryptImplementation bcrypt implementation
+ * @param {Object} JWTImplementation JWT implementation
+ * @returns the controller's public interface
+ */
 const userController = (UserModel, { compare, hash }, { sign }) => {
   const register = async (req, res) => {
     try {
@@ -106,8 +113,26 @@ const userController = (UserModel, { compare, hash }, { sign }) => {
   };
 
   return {
+    /**
+     * logs in a user
+     * @param {express.Request} req express request object
+     * @param {express.Response} res express response object
+     * @returns {express.Response} the user's email and access token
+     */
     login,
+    /**
+     * creates a new user in the db
+     * @param {express.Request} req express request object
+     * @param {express.Response} res express response object
+     * @returns {express.Response} the user's email and access token
+     */
     register,
+    /**
+     * adds or remove the requested character from the user's favorite characters list
+     * @param {express.Request} req express request object
+     * @param {express.Response} res express response object
+     * @returns {express.Response} the user's favorite characters list
+     */
     updateFavorite,
   };
 };
