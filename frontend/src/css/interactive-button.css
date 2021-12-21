@@ -59,8 +59,19 @@
   outline: none;
 }
 
-.interactive-button-btn:hover {
+.interactive-button-btn:hover:not([disabled]) {
   background-position: -20px -20px;
+}
+
+.interactive-button-btn[disabled],
+.interactive-button-btn[disabled]:hover {
+  background-color: rgba(239, 239, 239, 0.3);
+  cursor: not-allowed;
+  background-image: linear-gradient(
+    1deg,
+    rgba(239, 239, 239, 0.3),
+    rgba(19, 1, 1, 0.3) 99%
+  );
 }
 
 .interactive-button-btn:focus:not(:active) {

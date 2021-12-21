@@ -9,7 +9,7 @@ export async function login(payload) {
     payload,
   });
 
-  return res.json();
+  return await res.json();
 }
 
 export async function register(payload) {
@@ -92,7 +92,7 @@ async function callApi({ path, method, payload = null, token = null }) {
     return response;
   } catch (error) {
     const msg = "Network Error";
-    const body = new Blob([JSON.stringify({ msg })], {
+    const body = new Blob([JSON.stringify({ success: false, data: { msg } })], {
       type: "application/json",
     });
     return new Response(body, {

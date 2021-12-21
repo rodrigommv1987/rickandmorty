@@ -18,6 +18,7 @@ const InteractiveButton = ({ type = "button", onClick, children }) => {
           className="interactive-button-btn"
           type={type}
           onClick={handleClick}
+          disabled={showLoading}
         >
           {children}
         </button>
