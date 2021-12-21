@@ -1,9 +1,11 @@
+import { motion } from "framer-motion";
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import FormErrors from "../common/FormErrors";
 import InteractiveButton from "../common/InteractiveButton";
 import { login } from "../../utils/api";
+import { validEmail } from "../../utils/validation";
 import { UserContext } from "../App";
 
 export default function Login() {
@@ -18,6 +20,7 @@ export default function Login() {
     const errors = [];
     setErrors(errors);
     if (!email) errors.push("Missing email address");
+    if (email && !validEmail(email)) errors.push("Invalid email address");
     if (!password) errors.push("Missing password");
 
     if (errors.length) {
@@ -44,9 +47,22 @@ export default function Login() {
     }
   };
 
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.4 },
+    },
+  };
+
   return (
     <div className="login-container">
-      <div className="login-wrapper">
+      <motion.div
+        className="login-wrapper"
+        variants={variants}
+        initial="hidden"
+        animate="visible"
+      >
         <h1 className="login-title">Log In</h1>
         <form className="login-form">
           <label className="login-form-control">
@@ -76,7 +92,7 @@ export default function Login() {
           <span>want to create an account?</span>
           <Link to="/register">Register now!</Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

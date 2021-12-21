@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { UserContext } from "../App";
@@ -21,7 +21,7 @@ const Header = () => {
           Home
         </NavLink>
         {" | "}
-        <NavLink to="/characters" className={activeStyle}>
+        <NavLink to="/characters" className={activeStyle} end>
           Characters
         </NavLink>
       </div>

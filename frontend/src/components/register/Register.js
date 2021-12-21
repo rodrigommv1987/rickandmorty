@@ -1,9 +1,11 @@
-import React, { useState, useContext } from "react";
+import { motion } from "framer-motion";
+import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import FormErrors from "../common/FormErrors";
 import InteractiveButton from "../common/InteractiveButton";
 import { register } from "../../utils/api";
+import { validEmail } from "../../utils/validation";
 import { UserContext } from "../App";
 
 export default function Register() {
@@ -19,6 +21,7 @@ export default function Register() {
     const errors = [];
     setErrors(errors);
     if (!email) errors.push("Missing email address");
+    if (email && !validEmail(email)) errors.push("Invalid email address");
     if (!password) errors.push("Missing password");
     if (!repeatPassword) errors.push("Missing repeat password");
     if (password !== repeatPassword) errors.push("Passwords don't match");
@@ -47,9 +50,22 @@ export default function Register() {
     }
   };
 
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.4 },
+    },
+  };
+
   return (
     <div className="login-container">
-      <div className="login-wrapper">
+      <motion.div
+        className="login-wrapper"
+        variants={variants}
+        initial="hidden"
+        animate="visible"
+      >
         <h1 className="login-title">Register new account</h1>
         <form className="login-form">
           <label className="login-form-control">
@@ -88,7 +104,7 @@ export default function Register() {
             Already have an account? <Link to="/login">Login now!</Link>
           </span>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

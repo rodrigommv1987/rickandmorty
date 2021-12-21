@@ -1,10 +1,11 @@
+import { motion } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 
-const SmallCard = ({ character, isFavorite }) => {
+const SmallCard = ({ character, isFavorite, variants }) => {
   const { image, id, name } = character;
   return (
-    <article className="card-wrapper card-small">
+    <motion.article className="card-wrapper card-small" variants={variants}>
       <div className="card-image">
         <LazyLoadImage alt={image} src={image} effect="blur" />
       </div>
@@ -18,7 +19,7 @@ const SmallCard = ({ character, isFavorite }) => {
         </Link>
         {isFavorite ? <span>favorite</span> : null}
       </div>
-    </article>
+    </motion.article>
   );
 };
 
